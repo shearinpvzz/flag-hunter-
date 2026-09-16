@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>🌍 Flag Hunter</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    color: white;
+
+    background:
+        radial-gradient(circle at 10% 10%, #ff4ecd55, transparent 25%),
+        radial-gradient(circle at 90% 15%, #38bdf855, transparent 25%),
+        radial-gradient(circle at 80% 90%, #facc1555, transparent 25%),
+        linear-gradient(135deg, #17133d, #103b55, #123c35);
+
+    background-size: 100% 100%;
+}
+
+/* HEADER */
+
+header {
+    text-align: center;
+    padding: 25px 15px;
+
+    background: rgba(10, 8, 35, .88);
+
+    border-bottom:
+        2px solid rgba(255,255,255,.15);
+}
+
+header h1 {
+    font-size: 38px;
+    letter-spacing: 4px;
+
+    text-shadow:
+        0 0 10px #6ee7ff,
+        0 0 25px #c084fc;
+}
+
+header p {
+    margin-top: 7px;
+    color: #cbd5ff;
+}
+
+/* CONTAINER */
+
+.container {
+    width: 94%;
+    max-width: 950px;
+    margin: 25px auto;
+}
+
+/* STATS */
+
+.stats {
+    display: grid;
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.stat {
+    padding: 15px;
+
+    text-align: center;
+
+    background:
+        rgba(20,18,55,.9);
+
+    border:
+        2px solid rgba(255,255,255,.13);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 25px #0004;
+}
+
+.stat small {
+    color: #bfc8ff;
+}
+
+.stat h2 {
+    margin-top: 5px;
+}
+
+/* GAME CARD */
+
+.game-card {
+    padding: 25px;
+
+    background:
+        rgba(15,14,43,.94);
+
+    border:
+        2px solid rgba(255,255,255,.13);
+
+    border-radius: 28px;
+
+    box-shadow:
+        0 20px 50px #0006;
+}
+
+/* START */
+
+#startScreen {
+    text-align: center;
+}
+
+.start-icon {
+    font-size: 90px;
+
+    animation:
+        floating 2s infinite ease-in-out;
+}
+
+@keyframes floating {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.start-title {
+    margin-top: 15px;
+
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.start-description {
+    max-width: 600px;
+
+    margin:
+        15px auto 25px;
+
+    color: #cbd3f7;
+
+    line-height: 1.7;
+}
+
+.start-button {
+    width: 100%;
+
+    padding: 17px;
+
+    border: none;
+    border-radius: 16px;
+
+    color: white;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff3cac,
+            #784ba0,
+            #2b86c5
+        );
+
+    transition: .2s;
+}
+
+.start-button:hover {
+    transform: scale(1.02);
+}
+
+/* PROGRESS */
+
+.progress-top {
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    color: #cbd3f7;
+
+    margin-bottom: 8px;
+}
+
+.progress {
+    width: 100%;
+    height: 12px;
+
+    background: #29264d;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    margin-bottom: 25px;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff4ecd,
+            #8b5cf6,
+            #22d3ee
+        );
+
+    transition: .4s;
+}
+
+/* FLAG */
+
+.flag-container {
+    padding: 30px;
+
+    text-align: center;
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff12,
+            #ffffff03
+        );
+
+    border:
+        1px solid #ffffff20;
+
+    margin-bottom: 22px;
+}
+
+.flag-image {
+    width: 280px;
+    max-width: 90%;
+
+    height: 180px;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 15px 35px #0008;
+
+    animation:
+        flagAppear .4s ease;
+}
+
+@keyframes flagAppear {
+
+    from {
+        opacity: 0;
+        transform: scale(.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.question {
+    text-align: center;
+
+    font-size: 23px;
+
+    margin-bottom: 20px;
+}
+
+/* OPTIONS */
+
+.options {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 12px;
+}
+
+.option {
+    padding: 16px;
+
+    border-radius: 16px;
+
+    border:
+        2px solid #ffffff15;
+
+    background: #26234e;
+
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.option:hover {
+    transform:
+        translateY(-3px);
+
+    background: #3c3770;
+
+    border-color:
+        #8b83ff;
+}
+
+.option.correct {
+    background:
+        linear-gradient(
+            135deg,
+            #16a34a,
+            #059669
+        );
+
+    border-color: #6ee7a8;
+}
+
+.option.wrong {
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #be185d
+        );
+
+    border-color: #ff8ca8;
+}
+
+/* FEEDBACK */
+
+.feedback {
+    min-height: 30px;
+
+    text-align: center;
+
+    margin-top: 17px;
+
+    font-weight: bold;
+
+    font-size: 16px;
+}
+
+/* BUTTONS */
+
+.controls {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+.control {
+    flex: 1;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.hint {
+    background:
+        linear-gradient(
+            135deg,
+            #f59e0b,
+            #ef4444
+        );
+}
+
+.next {
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #06b6d4
+        );
+}
+
+.control:hover {
+    transform: scale(1.02);
+}
+
+/* HINT */
+
+.hint-box {
+    display: none;
+
+    padding: 12px;
+
+    margin-top: 12px;
+
+    border-radius: 12px;
+
+    text-align: center;
+
+    color: #ffe8a3;
+
+    background:
+        #49395f;
+}
+
+/* RESULT */
+
+#resultScreen {
+    display: none;
+
+    text-align: center;
+}
+
+.result-icon {
+    font-size: 85px;
+}
+
+.result-title {
+    margin-top: 10px;
+
+    font-size: 32px;
+}
+
+.final-score {
+    margin: 15px;
+
+    font-size: 55px;
+    font-weight: bold;
+
+    color: #ffd166;
+}
+
+.result-text {
+    color: #cbd3f7;
+
+    line-height: 1.7;
+
+    margin-bottom: 25px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px) {
+
+    .stats {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .options {
+        grid-template-columns: 1fr;
+    }
+
+    .flag-image {
+        height: 150px;
+    }
+
+    header h1 {
+        font-size: 28px;
+    }
+
+    .question {
+        font-size: 19px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<header>
+
+    <h1>🌍 FLAG HUNTER</h1>
+
+    <p>
+        Tebak Negara dari Foto Benderanya!
+    </p>
+
+</header>
+
+
+<div class="container">
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <small>⭐ SKOR</small>
+
+            <h2 id="score">
+                0
+            </h2>
+
+        </div>
+
+
+        <div class="stat">
+
+            <small>❤️ NYAWA</small>
+
+            <h2 id="lives">
+                ❤️❤️❤️
+            </h2>
+
+        </div>
+
+
+        <div class="stat">
+
+            <small>🔥 STREAK</small>
+
+            <h2 id="streak">
+                0
+            </h2>
+
+        </div>
+
+
+        <div class="stat">
+
+            <small>⏱️ WAKTU</small>
+
+            <h2 id="timer">
+                15
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <!-- GAME -->
+
+    <div class="game-card">
+
+
+        <!-- START SCREEN -->
+
+        <div id="startScreen">
+
+            <div class="start-icon">
+                🌎
+            </div>
+
+            <div class="start-title">
+                FLAG HUNTER
+            </div>
+
+            <div class="start-description">
+
+                Uji pengetahuanmu tentang negara-negara
+                di seluruh dunia! 🌏
+
+                <br><br>
+
+                Tebak negara berdasarkan foto benderanya.
+
+                <br>
+
+                Ada <b>40 negara</b> dengan soal yang
+                diacak setiap permainan.
+
+                <br><br>
+
+                ❤️ 3 Nyawa
+                &nbsp; • &nbsp;
+                ⏱️ 15 Detik
+                &nbsp; • &nbsp;
+                🔥 Streak Bonus
+
+            </div>
+
+
+            <button
+                class="start-button"
+                onclick="startGame()">
+
+                🚀 MULAI PETUALANGAN
+
+            </button>
+
+        </div>
+
+
+        <!-- GAME SCREEN -->
+
+        <div
+            id="gameScreen"
+            style="display:none">
+
+
+            <div class="progress-top">
+
+                <span id="questionNumber">
+                    Soal 1 / 40
+                </span>
+
+                <span>
+                    🌎 World Tour
+                </span>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar"
+                    id="progressBar">
+                </div>
+
+            </div>
+
+
+            <!-- FLAG -->
+
+            <div class="flag-container">
+
+                <img
+                    id="flagImage"
+                    class="flag-image"
+                    src=""
+                    alt="Bendera negara">
+
+            </div>
+
+
+            <div class="question">
+
+                Negara manakah yang memiliki
+                bendera ini?
+
+            </div>
+
+
+            <!-- OPTIONS -->
+
+            <div
+                class="options"
+                id="options">
+
+            </div>
+
+
+            <!-- FEEDBACK -->
+
+            <div
+                class="feedback"
+                id="feedback">
+
+            </div>
+
+
+            <!-- HINT -->
+
+            <div
+                class="hint-box"
+                id="hintBox">
+
+            </div>
+
+
+            <!-- CONTROLS -->
+
+            <div class="controls">
+
+                <button
+                    class="control hint"
+                    onclick="useHint()">
+
+                    💡 HINT (-5)
+
+                </button>
+
+
+                <button
+                    class="control next"
+                    onclick="nextQuestion()">
+
+                    ➡️ LANJUT
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESULT -->
+
+        <div id="resultScreen">
+
+            <div class="result-icon">
+                🏆
+            </div>
+
+            <div
+                class="result-title"
+                id="resultTitle">
+
+                GAME SELESAI!
+
+            </div>
+
+
+            <div
+                class="final-score"
+                id="finalScore">
+
+                0
+
+            </div>
+
+
+            <div
+                class="result-text"
+                id="resultText">
+
+            </div>
+
+
+            <button
+                class="start-button"
+                onclick="playAgain()">
+
+                🔄 MAIN LAGI
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   DATABASE NEGARA
+===================================================== */
+
+const countries = [
+
+    {
+        name: "Indonesia",
+        code: "id",
+        hint: "Negara kepulauan di Asia Tenggara."
+    },
+
+    {
+        name: "Malaysia",
+        code: "my",
+        hint: "Negara tetangga Indonesia."
+    },
+
+    {
+        name: "Singapura",
+        code: "sg",
+        hint: "Negara kota kecil di Asia Tenggara."
+    },
+
+    {
+        name: "Thailand",
+        code: "th",
+        hint: "Ibu kotanya Bangkok."
+    },
+
+    {
+        name: "Vietnam",
+        code: "vn",
+        hint: "Ibu kotanya Hanoi."
+    },
+
+    {
+        name: "Filipina",
+        code: "ph",
+        hint: "Negara kepulauan di Asia Tenggara."
+    },
+
+    {
+        name: "Jepang",
+        code: "jp",
+        hint: "Dikenal sebagai Negeri Matahari Terbit."
+    },
+
+    {
+        name: "Korea Selatan",
+        code: "kr",
+        hint: "Ibu kotanya Seoul."
+    },
+
+    {
+        name: "China",
+        code: "cn",
+        hint: "Negara besar di Asia Timur."
+    },
+
+    {
+        name: "India",
+        code: "in",
+        hint: "Negara tempat Taj Mahal berada."
+    },
+
+    {
+        name: "Australia",
+        code: "au",
+        hint: "Negara yang juga merupakan benua."
+    },
+
+    {
+        name: "Selandia Baru",
+        code: "nz",
+        hint: "Negara kepulauan dekat Australia."
+    },
+
+    {
+        name: "Amerika Serikat",
+        code: "us",
+        hint: "Memiliki 50 negara bagian."
+    },
+
+    {
+        name: "Kanada",
+        code: "ca",
+        hint: "Daun maple menjadi simbol terkenal."
+    },
+
+    {
+        name: "Meksiko",
+        code: "mx",
+        hint: "Berada di sebelah selatan Amerika Serikat."
+    },
+
+    {
+        name: "Brasil",
+        code: "br",
+        hint: "Negara terbesar di Amerika Selatan."
+    },
+
+    {
+        name: "Argentina",
+        code: "ar",
+        hint: "Ibu kotanya Buenos Aires."
+    },
+
+    {
+        name: "Chile",
+        code: "cl",
+        hint: "Negara panjang dan sempit di Amerika Selatan."
+    },
+
+    {
+        name: "Kolombia",
+        code: "co",
+        hint: "Negara di bagian utara Amerika Selatan."
+    },
+
+    {
+        name: "Peru",
+        code: "pe",
+        hint: "Terkenal dengan Machu Picchu."
+    },
+
+    {
+        name: "Inggris",
+        code: "gb",
+        hint: "Ibu kotanya London."
+    },
+
+    {
+        name: "Prancis",
+        code: "fr",
+        hint: "Terkenal dengan Menara Eiffel."
+    },
+
+    {
+        name: "Jerman",
+        code: "de",
+        hint: "Berada di Eropa Tengah."
+    },
+
+    {
+        name: "Italia",
+        code: "it",
+        hint: "Bentuk wilayahnya sering diibaratkan seperti sepatu."
+    },
+
+    {
+        name: "Spanyol",
+        code: "es",
+        hint: "Ibu kotanya Madrid."
+    },
+
+    {
+        name: "Portugal",
+        code: "pt",
+        hint: "Berada di sebelah barat Spanyol."
+    },
+
+    {
+        name: "Belanda",
+        code: "nl",
+        hint: "Terkenal dengan tulip dan kincir angin."
+    },
+
+    {
+        name: "Swiss",
+        code: "ch",
+        hint: "Terkenal dengan Pegunungan Alpen."
+    },
+
+    {
+        name: "Norwegia",
+        code: "no",
+        hint: "Negara Skandinavia dengan fjord."
+    },
+
+    {
+        name: "Swedia",
+        code: "se",
+        hint: "Negara di Eropa Utara."
+    },
+
+    {
+        name: "Finlandia",
+        code: "fi",
+        hint: "Dikenal sebagai negara dengan banyak danau."
+    },
+
+    {
+        name: "Yunani",
+        code: "gr",
+        hint: "Terkenal dengan sejarah Yunani Kuno."
+    },
+
+    {
+        name: "Turki",
+        code: "tr",
+        hint: "Wilayahnya berada di Eropa dan Asia."
+    },
+
+    {
+        name: "Mesir",
+        code: "eg",
+        hint: "Terkenal dengan piramida kuno."
+    },
+
+    {
+        name: "Afrika Selatan",
+        code: "za",
+        hint: "Berada di ujung selatan Afrika."
+    },
+
+    {
+        name: "Maroko",
+        code: "ma",
+        hint: "Berada di Afrika Utara."
+    },
+
+    {
+        name: "Arab Saudi",
+        code: "sa",
+        hint: "Berada di Semenanjung Arab."
+    },
+
+    {
+        name: "Uni Emirat Arab",
+        code: "ae",
+        hint: "Salah satu kotanya adalah Dubai."
+    },
+
+    {
+        name: "Israel",
+        code: "il",
+        hint: "Berada di kawasan Timur Tengah."
+    },
+
+    {
+        name: "Ukraina",
+        code: "ua",
+        hint: "Negara di Eropa Timur."
+    }
+
+];
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let questions = [];
+
+let currentQuestion = 0;
+
+let score = 0;
+
+let lives = 3;
+
+let streak = 0;
+
+let timeLeft = 15;
+
+let timer;
+
+let answered = false;
+
+
+/* =====================================================
+   SHUFFLE
+===================================================== */
+
+function shuffle(array) {
+
+    return array.sort(
+        () => Math.random() - 0.5
+    );
+
+}
+
+
+/* =====================================================
+   START GAME
+===================================================== */
+
+function startGame() {
+
+    /*
+    INI BAGIAN PENTING.
+
+    Setiap game baru:
+    1. Database disalin
+    2. Urutannya diacak
+    3. Hasilnya menjadi soal baru
+    */
+
+    questions =
+        shuffle([...countries]);
+
+    currentQuestion = 0;
+
+    score = 0;
+
+    lives = 3;
+
+    streak = 0;
+
+    document.getElementById(
+        "startScreen"
+    ).style.display = "none";
+
+    document.getElementById(
+        "resultScreen"
+    ).style.display = "none";
+
+    document.getElementById(
+        "gameScreen"
+    ).style.display = "block";
+
+    updateStats();
+
+    showQuestion();
+
+}
+
+
+/* =====================================================
+   SHOW QUESTION
+===================================================== */
+
+function showQuestion() {
+
+    answered = false;
+
+    clearInterval(timer);
+
+    timeLeft = 15;
+
+    document.getElementById(
+        "timer"
+    ).innerText = timeLeft;
+
+    document.getElementById(
+        "feedback"
+    ).innerText = "";
+
+    document.getElementById(
+        "hintBox"
+    ).style.display = "none";
+
+
+    const current =
+        questions[currentQuestion];
+
+
+    /*
+    FLAG FOTO
+    */
+
+    document.getElementById(
+        "flagImage"
+    ).src =
+        `https://flagcdn.com/w640/${current.code}.png`;
+
+
+    document.getElementById(
+        "questionNumber"
+    ).innerText =
+        `Soal ${currentQuestion + 1} / ${questions.length}`;
+
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        (
+            currentQuestion /
+            questions.length
+        ) * 100 + "%";
+
+
+    createOptions(
+        current.name
+    );
+
+
+    startTimer();
+
+}
+
+
+/* =====================================================
+   CREATE OPTIONS
+===================================================== */
+
+function createOptions(correctAnswer) {
+
+    let choices = [
+        correctAnswer
+    ];
+
+
+    while (choices.length < 4) {
+
+        const randomCountry =
+            countries[
+                Math.floor(
+                    Math.random() *
+                    countries.length
+                )
+            ].name;
+
+
+        if (
+            !choices.includes(
+                randomCountry
+            )
+        ) {
+
+            choices.push(
+                randomCountry
+            );
+
+        }
+
+    }
+
+
+    choices = shuffle(choices);
+
+
+    const container =
+        document.getElementById(
+            "options"
+        );
+
+    container.innerHTML = "";
+
+
+    choices.forEach(country => {
+
+        const button =
+            document.createElement(
+                "button"
+            );
+
+
+        button.className =
+            "option";
+
+
+        button.innerText =
+            country;
+
+
+        button.onclick =
+            function() {
+
+                checkAnswer(
+                    country,
+                    button
+                );
+
+            };
+
+
+        container.appendChild(
+            button
+        );
+
+    });
+
+}
+
+
+/* =====================================================
+   CHECK ANSWER
+===================================================== */
+
+function checkAnswer(
+    answer,
+    button
+) {
+
+    if (answered)
+        return;
+
+
+    answered = true;
+
+    clearInterval(timer);
+
+
+    const correct =
+        questions[
+            currentQuestion
+        ].name;
+
+
+    const buttons =
+        document.querySelectorAll(
+            ".option"
+        );
+
+
+    buttons.forEach(btn => {
+
+        if (
+            btn.innerText ===
+            correct
+        ) {
+
+            btn.classList.add(
+                "correct"
+            );
+
+        }
+
+    });
+
+
+    if (answer === correct) {
+
+        button.classList.add(
+            "correct"
+        );
+
+
+        streak++;
+
+
+        let points = 10;
+
+
+        /*
+        BONUS STREAK
+        */
+
+        if (streak >= 3) {
+
+            points += 5;
+
+        }
+
+
+        if (streak >= 5) {
+
+            points += 10;
+
+        }
+
+
+        score += points;
+
+
+        document.getElementById(
+            "feedback"
+        ).innerText =
+            `🎉 BENAR! +${points} POIN 🔥`;
+
+
+    }
+
+    else {
+
+        button.classList.add(
+            "wrong"
+        );
+
+
+        lives--;
+
+        streak = 0;
+
+
+        document.getElementById(
+            "feedback"
+        ).innerText =
+            `❌ SALAH! Jawaban: ${correct}`;
+
+
+        if (lives <= 0) {
+
+            setTimeout(
+                endGame,
+                900
